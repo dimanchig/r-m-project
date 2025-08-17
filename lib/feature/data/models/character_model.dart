@@ -1,8 +1,9 @@
+import 'package:game_project/feature/data/models/character_locationAndOrigin_model.dart';
 import 'package:hive/hive.dart';
 
 part 'character_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class CharacterModel {
   @HiveField(0)
   final int id;
@@ -23,6 +24,12 @@ class CharacterModel {
   final String gender;
 
   @HiveField(6)
+  final LocationAndOriginModel origin;
+
+  @HiveField(7)
+  final LocationAndOriginModel location;
+
+  @HiveField(8)
   final String image;
 
   CharacterModel({
@@ -32,6 +39,8 @@ class CharacterModel {
     required this.species,
     required this.type,
     required this.gender,
+    required this.origin,
+    required this.location,
     required this.image,
   });
 
@@ -43,6 +52,12 @@ class CharacterModel {
       species: json['species'],
       type: json['type'],
       gender: json['gender'],
+      origin: json['origin'] != null
+          ? LocationAndOriginModel.fromJson(json['origin'])
+          : LocationAndOriginModel(name: 'Unknown', url: ''),
+      location: json['location'] != null
+          ? LocationAndOriginModel.fromJson(json['location'])
+          : LocationAndOriginModel(name: 'Unknown', url: ''),
       image: json['image'],
     );
   }
