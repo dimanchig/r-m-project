@@ -1,4 +1,5 @@
 part of 'character_bloc.dart';
 
-@immutable
-sealed class CharacterEvent {}
+abstract class CharactersEvent {}
+
+class LoadCharacters extends CharactersEvent {}

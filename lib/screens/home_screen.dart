@@ -8,10 +8,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<CharacterBloc, CharacterState>(
+      body: BlocBuilder<CharactersBloc, CharactersState>(
         builder: (context, state) {
-          // тут UI по состоянию блока
-          return Container();
+          // Ловим состояние и выводим в консоль
+          if (state is CharactersLoaded) {
+            for (var c in state.characters) {
+              print('${c.id} - ${c.name}');
+            }
+          }
+
+          return Center(
+            child: FloatingActionButton(
+              onPressed: () {
+                // Вызываем эвент блока
+                context.read<CharactersBloc>().add(LoadCharacters());
+              },
+              child: const Icon(Icons.download),
+            ),
+          );
         },
       ),
     );
